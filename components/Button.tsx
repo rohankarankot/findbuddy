@@ -28,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const btnVariant = variantStyles[variant];
   return (
-    <Link href={href} asChild>
+    <Link href={href as string} asChild>
       <TouchableOpacity
         className={`flex-row justify-center items-center gap-2  ${btnVariant} ${className} pb-5`}
         {...props}
