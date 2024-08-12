@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs, useNavigation } from "expo-router";
-import { Pressable } from "react-native";
+import { Tabs, useNavigation } from "expo-router";
+import { Alert, Pressable } from "react-native";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useUser } from "@clerk/clerk-expo";
 import { NavigationProp } from "@react-navigation/native";
+import { Text } from "@/components/Themed";
+import { Ionicons } from "@expo/vector-icons";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -20,6 +22,7 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const { user } = useUser();
+
   const navigation = useNavigation<NavigationProp<any>>();
 
   useEffect(() => {
@@ -35,22 +38,38 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="explore"
         options={{
-          title: "Explore",
+          tabBarLabel: "Explore",
+          title: "Explore at you Location",
           tabBarIcon: ({ color }) => <TabBarIcon name="road" color={color} />,
+          headerRight: () => {
+            return (
+              <Pressable
+                className="flex flex-row gap-1"
+                onPress={() => {
+                  Alert.alert("Todo");
+                }}
+              >
+                <Text style={{ color: "#fff" }}>Solapur</Text>
+                <Ionicons
+                  style={{ color: "#fff" }}
+                  name="location-sharp"
+                  size={20}
+                />
+              </Pressable>
+            );
+          },
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="createEvent"
         options={{
-          title: "Tab Two",
+          title: "Create Event",
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="plus-square" color={color} />
           ),

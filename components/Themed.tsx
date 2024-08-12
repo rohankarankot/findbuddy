@@ -33,7 +33,7 @@ export function useThemeColor(
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const color = useThemeColor(
-    { light: lightColor || "#eee", dark: darkColor || "rgba(255,255,255,0.1)" },
+    { light: lightColor ?? "#eee", dark: darkColor ?? "rgba(255,255,255,0.1)" },
     "text"
   );
 
@@ -43,7 +43,7 @@ export function Text(props: TextProps) {
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const backgroundColor = useThemeColor(
-    { light: lightColor || "#eee", dark: darkColor || "rgba(255,255,255,0.1)" },
+    { light: lightColor ?? "#eee", dark: darkColor ?? "rgba(255,255,255,0.1)" },
     "background"
   );
 
