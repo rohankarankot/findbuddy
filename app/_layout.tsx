@@ -7,7 +7,7 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
@@ -62,16 +62,8 @@ function RootLayoutNav() {
 }
 
 const RootStack = () => {
-  const { user } = useUser();
-  const [initialRoute, setinitialRoute] = useState("(tabs)");
-  useLayoutEffect(() => {
-    if (!user) {
-      setinitialRoute("(auth)");
-    } else setinitialRoute("(tabs)");
-  }, [user]);
-
   return (
-    <Stack initialRouteName={initialRoute}>
+    <Stack initialRouteName={"(tabs)"}>
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
