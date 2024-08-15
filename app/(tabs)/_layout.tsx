@@ -22,15 +22,6 @@ export default function TabLayout() {
   const { user } = useUser();
   const navigation = useNavigation<NavigationProp<any>>();
 
-  useEffect(() => {
-    if (!user) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "(auth)" }], // Replace "(tabs)" with the main app screen's name
-      });
-    }
-  }, [user]);
-
   return (
     <Tabs
       screenOptions={{

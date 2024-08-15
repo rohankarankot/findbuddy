@@ -14,7 +14,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native"; // Imp
 
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { View } from "@/components/Themed";
-import { useRef } from "react";
+import { useEffect } from "react";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -28,10 +28,10 @@ const Page = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   // Initialize the navigation hook
   const googleOAuth = useOAuth({ strategy: "oauth_google" });
-  const animation = useRef<LottieView>(null);
 
   const onSelectAuth = async () => {
     try {
+      signOut();
       const oAuthFlow = await googleOAuth.startOAuthFlow({
         redirectUrl: Linking.createURL("/(tabs)"),
       });
@@ -56,12 +56,19 @@ const Page = () => {
 
   const { user } = useUser();
   const { signOut } = useClerk();
+  useEffect(() => {
+    if (user) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "(tabs)" }], // Replace "(tabs)" with the main app screen's name
+      });
+    }
+  }, [user]);
 
   return (
     <View className="flex-1 justify-center items-center ">
       <LottieView
         autoPlay
-        ref={animation}
         style={styles.lottie}
         source={require("../../assets/lottie/welcome.json")}
       />
