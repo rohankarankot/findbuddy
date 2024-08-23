@@ -6,6 +6,7 @@ const PublicLayout = () => {
     <Stack
       screenOptions={{
         headerBackTitle: "Back",
+        headerShown: false,
       }}
     >
       <Stack.Screen

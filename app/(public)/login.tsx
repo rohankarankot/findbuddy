@@ -1,21 +1,20 @@
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { useClerk, useOAuth, useSignIn, useUser } from "@clerk/clerk-expo";
-import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import * as Linking from "expo-linking";
-import { router, useNavigation } from "expo-router";
-import { NavigationProp } from "@react-navigation/native";
+import { router } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import GoogleLogin from "@/components/googleLogin";
 
 const Login = () => {
   useWarmUpBrowser();
   // Initialize the navigation hook
-  const { signIn, setActive, isLoaded } = useSignIn();
+  useSignIn();
   const { user } = useUser();
   console.log("user: @@@>", user);
   const { signOut } = useClerk();
   const googleOAuth = useOAuth({ strategy: "oauth_google" });
-  const navigation = useNavigation<NavigationProp<any>>();
 
   const onSelectAuth = async () => {
     try {
@@ -39,12 +38,12 @@ const Login = () => {
     }
   };
   return (
-    <View>
-      <TouchableOpacity onPress={() => onSelectAuth()}>
-        <Ionicons name="logo-google" size={24} />
-        <Text>Continue with Google</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView className="flex-1 bg-slate-200 justify-center items-center ">
+      <View className="flex-[0.5]">
+        <Text className="text-6xl">Nice Catchy Title for the app</Text>
+      </View>
+      <GoogleLogin onSelectAuth={onSelectAuth} />
+    </SafeAreaView>
   );
 };
 
