@@ -1,37 +1,59 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { Alert, Pressable } from "react-native";
+import { useAuth } from "@clerk/clerk-expo";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+export const LogoutButton = () => {
+  const { signOut } = useAuth();
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const doLogout = () => {
+    signOut();
+  };
+
+  return (
+    <Pressable onPress={doLogout} style={{ marginRight: 10 }}>
+      <Ionicons name="log-out-outline" size={24} color={"#fff"} />
+    </Pressable>
+  );
+};
+
+const TabsPage = () => {
+  const { isSignedIn } = useAuth();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+        headerStyle: {
+          backgroundColor: "#6c47ff",
+        },
+        headerTintColor: "#fff",
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          headerTitle: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
+          tabBarLabel: "Home",
         }}
+        redirect={!isSignedIn}
       />
       <Tabs.Screen
-        name="explore"
+        name="profile"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          headerTitle: "My Profile",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" size={size} color={color} />
           ),
+          tabBarLabel: "My Profile",
+          headerRight: () => <LogoutButton />,
         }}
+        redirect={!isSignedIn}
       />
     </Tabs>
   );
-}
+};
+
+export default TabsPage;
