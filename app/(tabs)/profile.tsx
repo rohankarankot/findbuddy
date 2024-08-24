@@ -1,4 +1,4 @@
-import PrimaryButton from "@/components/blocks/buttons/primaryBtn";
+import PrimaryButton from "@/components/blocks/primaryBtn";
 import CustomText from "@/components/blocks/CustomText";
 import { useClerk } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";

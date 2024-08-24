@@ -16,7 +16,9 @@ const CustomText: React.FC<CustomTextProps> = ({ children, ...rest }) => {
 
   return (
     <StyledText
-      className={`text-${colorTheme == "dark" ? "white" : "black"}`}
+      className={`text-${
+        colorTheme == "dark" ? "white" : "black"
+      } font-[SpaceMono]`}
       {...rest}
     >
       {children}

@@ -4,14 +4,11 @@ import { useEffect } from "react";
 import { tokenCache } from "@/helpers/tokenCache";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-import {
-  ThemeProvider,
-  DarkTheme,
-  DefaultTheme,
-} from "@react-navigation/native";
+import { ThemeProvider } from "@react-navigation/native";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
+import { Dark, Light } from "@/theme/theme";
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -51,12 +48,13 @@ const RootLayout = () => {
   if (!loaded) {
     return null;
   }
+
   return (
     <ClerkProvider
       publishableKey={CLERK_PUBLISHABLE_KEY}
       tokenCache={tokenCache}
     >
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={colorScheme === "dark" ? Dark : Light}>
         <InitialLayout />
       </ThemeProvider>
     </ClerkProvider>
