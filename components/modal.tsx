@@ -1,19 +1,19 @@
 import React from "react";
 import Modal from "react-native-modal";
 
-const ModalComponent = ({ isVisible, onBackdropPress, children }: any) => {
+const ModalComponent = ({ isVisible, onBackButtonPress, children }: any) => {
   return (
     <Modal
       useNativeDriver
       isVisible={isVisible}
       animationIn="slideInUp"
-      animationOut="bounceOut"
+      animationOut="fadeOutDown"
       animationOutTiming={300}
       animationInTiming={300}
       hasBackdrop
       useNativeDriverForBackdrop
+      onBackButtonPress={onBackButtonPress}
       backdropOpacity={0}
-      onBackdropPress={onBackdropPress}
     >
       {children}
     </Modal>

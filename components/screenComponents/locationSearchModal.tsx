@@ -42,7 +42,10 @@ const LocationSearchModal = ({ modalVisible, setModalVisible }: any) => {
   );
 
   return (
-    <ModalComponent isVisible={modalVisible}>
+    <ModalComponent
+      isVisible={modalVisible}
+      onBackButtonPress={() => setModalVisible(false)}
+    >
       <KeyboardAvoidingView
         className="flex-1"
         behavior={Platform.OS === "ios" ? "padding" : "height"}

@@ -21,7 +21,7 @@ const data = Array.from({ length: 10 }, (_, index) => ({
 }));
 
 const Home = () => {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const theme = useTheme();
 
