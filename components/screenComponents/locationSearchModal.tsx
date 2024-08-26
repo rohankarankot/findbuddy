@@ -13,6 +13,7 @@ import CustomText from "../blocks/CustomText";
 import PrimaryButton from "../blocks/primaryBtn";
 import CustomTextInput from "../blocks/CustomTextInput";
 import { HEIGHT } from "@/helpers/Dimentions";
+import { fetchLocation } from "@/helpers/fetchCoords";
 
 const suggestionsData = [
   "Solapur",
@@ -26,7 +27,11 @@ const suggestionsData = [
   // Add more suggestions here if needed
 ];
 
-const LocationSearchModal = ({ modalVisible, setModalVisible }: any) => {
+const LocationSearchModal = ({
+  modalVisible,
+  setModalVisible,
+  setLocation,
+}: any) => {
   const theme = useTheme();
 
   const [searchText, setSearchText] = useState("");
@@ -40,7 +45,12 @@ const LocationSearchModal = ({ modalVisible, setModalVisible }: any) => {
       <CustomText className="text-lg">{item}</CustomText>
     </TouchableOpacity>
   );
-
+  const getLocation = async () => {
+    const location = await fetchLocation();
+    console.log("location: ", location);
+    setLocation(() => "Solapur");
+    setModalVisible(() => false);
+  };
   return (
     <ModalComponent
       isVisible={modalVisible}
@@ -76,7 +86,12 @@ const LocationSearchModal = ({ modalVisible, setModalVisible }: any) => {
               onChangeText={setSearchText}
               className="flex-1"
             />
-            <Ionicons name="locate-sharp" size={30} color={theme.colors.text} />
+            <Ionicons
+              name="locate-sharp"
+              size={30}
+              color={theme.colors.text}
+              onPress={getLocation}
+            />
           </View>
           {searchText.length > 0 && (
             <View className="w-full px-5 flex-1">

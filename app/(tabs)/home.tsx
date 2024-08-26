@@ -22,6 +22,7 @@ const data = Array.from({ length: 10 }, (_, index) => ({
 
 const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [location, setLocation] = useState("Gacchibowli");
 
   const theme = useTheme();
 
@@ -45,7 +46,7 @@ const Home = () => {
                 className="flex-row items-center"
                 onPress={() => setModalVisible(true)}
               >
-                <CustomText>Gacchibowli</CustomText>
+                <CustomText>{location}</CustomText>
                 <Ionicons
                   name="location-outline"
                   size={24}
@@ -80,6 +81,7 @@ const Home = () => {
       <LocationSearchModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
+        setLocation={setLocation}
       />
     </KeyboardAvoidingView>
   );
